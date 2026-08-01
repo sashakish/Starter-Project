@@ -4,418 +4,284 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff" />
-    <meta
-      name="description"
-      content="A tiny train dispatcher. Click anywhere to send a train chugging across the screen."
-    />
-    <meta property="og:title" content="welcome to conductor" />
-    <meta property="og:description" content="Click anywhere to dispatch a train." />
-    <meta property="og:type" content="website" />
-    <link rel="icon" type="image/png" href="./public/favicon.png" />
-    <title>welcome to conductor</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --ink: #151515;
-        --muted: #7a7a7a;
-        --faint: #d9d9d9;
-        --paper: #fbfbfa;
-        --panel: rgba(255, 255, 255, 0.72);
-        --accent: #111;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        min-height: 100%;
-      }
-
-      body {
-        margin: 0;
-        overflow: hidden;
-        background: var(--paper);
-        color: var(--ink);
-        font-family:
-          ui-sans-serif,
-          -apple-system,
-          BlinkMacSystemFont,
-          "SF Pro Text",
-          "Helvetica Neue",
-          Helvetica,
-          Arial,
-          sans-serif;
-        font-feature-settings: "kern";
-      }
-
-      main {
-        position: relative;
-        display: block;
-        width: 100vw;
-        min-height: 100svh;
-        overflow: hidden;
-        cursor: pointer;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      .hero {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        gap: 18px;
-        padding: 32px;
-        text-align: center;
-        transition: opacity 600ms ease;
-        pointer-events: none;
-      }
-
-      .hero.dispatched {
-        opacity: 0;
-      }
-
-      .hero-inner {
-        display: grid;
-        gap: 18px;
-        place-items: center;
-      }
-
-      .train-emoji {
-        display: inline-block;
-        font-size: clamp(56px, 10vw, 96px);
-        line-height: 1;
-        transform-origin: 50% 60%;
-        pointer-events: auto;
-      }
-
-      .train-emoji:hover {
-        animation: wiggle 600ms ease-in-out;
-      }
-
-      .tagline {
-        max-width: 28ch;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 450;
-        letter-spacing: 0;
-        line-height: 1.5;
-      }
-
-      .train {
-        position: fixed;
-        left: 0;
-        z-index: 1;
-        font-size: clamp(38px, 6vw, 56px);
-        line-height: 1;
-        pointer-events: none;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
-        will-change: transform;
-      }
-
-      .train.ltr {
-        animation-name: train-ltr;
-      }
-
-      .train.rtl {
-        animation-name: train-rtl;
-      }
-
-      .steam {
-        position: fixed;
-        z-index: 0;
-        color: #c9c9c7;
-        font-size: 18px;
-        pointer-events: none;
-        animation: puff 1400ms ease-out forwards;
-        will-change: transform, opacity;
-      }
-
-      .mute-toggle {
-        position: fixed;
-        top: 16px;
-        right: 16px;
-        z-index: 10;
-        display: inline-flex;
-        width: 38px;
-        height: 38px;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--faint);
-        border-radius: 999px;
-        background: var(--panel);
-        color: var(--ink);
-        cursor: pointer;
-        font-size: 16px;
-        backdrop-filter: blur(14px);
-        transition:
-          border-color 150ms ease,
-          background 150ms ease,
-          transform 150ms ease;
-      }
-
-      .mute-toggle:hover {
-        background: #fff;
-        border-color: #b8b8b8;
-        transform: translateY(-1px);
-      }
-
-      .mute-toggle:focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 3px;
-      }
-
-      .counter {
-        position: fixed;
-        bottom: 16px;
-        left: 16px;
-        z-index: 10;
-        color: var(--muted);
-        font-size: 13px;
-        font-weight: 450;
-        letter-spacing: 0;
-        pointer-events: none;
-      }
-
-      @keyframes wiggle {
-        0%,
-        100% {
-          transform: rotate(0);
-        }
-
-        25% {
-          transform: translateY(-4px) rotate(-6deg);
-        }
-
-        75% {
-          transform: translateY(-4px) rotate(6deg);
-        }
-      }
-
-      @keyframes train-ltr {
-        from {
-          transform: translateX(-15vw) scaleX(-1);
-        }
-
-        to {
-          transform: translateX(115vw) scaleX(-1);
-        }
-      }
-
-      @keyframes train-rtl {
-        from {
-          transform: translateX(115vw);
-        }
-
-        to {
-          transform: translateX(-15vw);
-        }
-      }
-
-      @keyframes puff {
-        0% {
-          opacity: 0.7;
-          transform: translate(0, 0) scale(0.8);
-        }
-
-        100% {
-          opacity: 0;
-          transform: translate(0, -40px) scale(1.4);
-        }
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .hero,
-        .train-emoji:hover {
-          animation: none;
-          transition: none;
-        }
-
-        .steam {
-          display: none;
-        }
-
-        .train.ltr,
-        .train.rtl {
-          left: 50%;
-          animation: fade-blip 1500ms ease both !important;
-        }
-
-        @keyframes fade-blip {
-          0% {
-            opacity: 0;
-            transform: translateX(-50%) scale(0.85);
-          }
-
-          20%,
-          80% {
-            opacity: 1;
-            transform: translateX(-50%) scale(1);
-          }
-
-          100% {
-            opacity: 0;
-            transform: translateX(-50%) scale(1);
-          }
-        }
-      }
-    </style>
+    <meta name="description" content="Custom AI systems for civil engineering and land surveying operations." />
+    <title>Custom AI Systems | Systems That Run the Work</title>
+    <link rel="stylesheet" href="site.css?v=hero-20260730-40" />
+    <script src="site.js?v=hero-20260730-40" defer></script>
   </head>
-  <body>
-    <main id="dispatcher">
-      <div class="hero" id="hero">
-        <div class="hero-inner">
-          <span class="train-emoji" role="img" aria-label="train">🚂</span>
-          <span class="tagline">Click anywhere to dispatch a train.</span>
+  <body class="home-page">
+    <div data-site-header></div>
+
+    <main>
+      <section class="gamut-hero" aria-labelledby="hero-title">
+        <div class="binary-layer" data-binary aria-hidden="true"></div>
+        <canvas class="workflow-branch-visual" data-workflow-branch aria-hidden="true"></canvas>
+        <div class="hero-content">
+          <div class="hero-copy">
+            <h1 id="hero-title">We build AI systems that run <span class="rotating-line" data-rotating-word data-words="your operation.|proposals end to end.|research at scale.|project delivery.|field reporting.|lead generation.|client follow-up.|compliance workflows.|document production.|back-office operations.|around the clock.|without a prompt." data-mobile-words="your firm.|proposals.|research.|projects.|fieldwork.|lead flow.|follow-up.|compliance.|documents.|back office.|24/7.|without prompts.">your operation.</span></h1>
+            <p>We study how work moves through your firm, then build the AI, software, and integrations to run it better.</p>
+            <div class="button-row"><a class="button button-dark" href="contact.html">Start a Project</a><a class="button button-light" href="#difference">Learn More</a></div>
+          </div>
         </div>
-      </div>
+        <span class="hero-coordinate">34.0522 N / 118.2437 W / SYSTEM ONLINE</span>
+      </section>
 
-      <button
-        class="mute-toggle"
-        id="mute"
-        type="button"
-        aria-label="Mute"
-        aria-pressed="false"
-      >
-        🔊
-      </button>
+      <section class="integration-strip" aria-label="Systems we work around">
+        <p class="integration-label">Built around the systems your firm already uses</p>
+        <div class="integration-track" aria-hidden="true">
+          <div class="integration-set">
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/autocad.svg" alt="" /></i>AutoCAD</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/arcgis.svg" alt="" /></i>ArcGIS</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/revit.svg" alt="" /></i>Revit</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/excel.svg" alt="" /></i>Excel</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/trimble.svg" alt="" /></i>Trimble</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/microstation.svg" alt="" /></i>MicroStation</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/qgis.svg" alt="" /></i>QGIS</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/teams.svg" alt="" /></i>Microsoft Teams</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/outlook.svg" alt="" /></i>Outlook</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/sharepoint.svg" alt="" /></i>SharePoint</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/power-bi.svg" alt="" /></i>Power BI</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/gmail.svg" alt="" /></i>Gmail</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/google-drive.svg" alt="" /></i>Google Drive</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/slack.svg" alt="" /></i>Slack</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/monday.svg" alt="" /></i>monday.com</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/onedrive.svg" alt="" /></i>OneDrive</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/autodesk.svg" alt="" /></i>Autodesk</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/airtable.svg" alt="" /></i>Airtable</span>
+          </div>
+          <div class="integration-set">
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/autocad.svg" alt="" /></i>AutoCAD</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/arcgis.svg" alt="" /></i>ArcGIS</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/revit.svg" alt="" /></i>Revit</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/excel.svg" alt="" /></i>Excel</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/trimble.svg" alt="" /></i>Trimble</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/microstation.svg" alt="" /></i>MicroStation</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/qgis.svg" alt="" /></i>QGIS</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/teams.svg" alt="" /></i>Microsoft Teams</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/outlook.svg" alt="" /></i>Outlook</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/sharepoint.svg" alt="" /></i>SharePoint</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/power-bi.svg" alt="" /></i>Power BI</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/gmail.svg" alt="" /></i>Gmail</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/google-drive.svg" alt="" /></i>Google Drive</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/slack.svg" alt="" /></i>Slack</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/monday.svg" alt="" /></i>monday.com</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/onedrive.svg" alt="" /></i>OneDrive</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/autodesk.svg" alt="" /></i>Autodesk</span>
+            <span class="integration-item"><i class="integration-logo"><img src="public/brand-icons/airtable.svg" alt="" /></i>Airtable</span>
+          </div>
+        </div>
+      </section>
 
-      <div class="counter" id="counter" aria-live="polite">0 trains dispatched</div>
+      <section class="content-section" id="difference" aria-labelledby="difference-title">
+        <p class="scramble-label" data-label="The difference">The difference</p>
+        <h2 class="difference-title reveal" id="difference-title">Off-the-shelf AI handles tasks.<br />Custom systems run the whole job.</h2>
+
+        <div class="product-scroll-stage" data-demo-scroll>
+          <div class="product-window reveal" data-product-demo>
+            <div class="window-bar"><div class="window-dots"><i></i><i></i><i></i></div><span class="window-title">Proposal Operations / Live Workflow</span></div>
+            <div class="window-body">
+              <aside class="demo-sidebar">
+                <div class="demo-outcome-card">
+                  <div class="demo-outcome-head"><span>Expected outcome</span><i>Example</i></div>
+                  <div class="demo-outcome-tabs" role="tablist" aria-label="Illustrative workflow outcome">
+                    <button class="is-active" type="button" role="tab" aria-selected="true" data-outcome-tab="time">Time</button>
+                    <button type="button" role="tab" aria-selected="false" data-outcome-tab="value">Value</button>
+                  </div>
+                  <div class="demo-outcome-panel" data-outcome-panel="time"><strong>6-8 hrs</strong><span>saved per pursuit</span></div>
+                  <div class="demo-outcome-panel" data-outcome-panel="value" hidden><strong>$450-700</strong><span>capacity per pursuit</span></div>
+                </div>
+                <p class="demo-sidebar-label">Example systems</p>
+                <div class="demo-system-list">
+                  <div class="demo-nav-item is-active"><i></i>Proposal Operations</div>
+                  <div class="demo-nav-item"><i></i>SWPPP Reporting</div>
+                  <div class="demo-nav-item"><i></i>Survey Research</div>
+                  <div class="demo-nav-item"><i></i>Project Delivery</div>
+                  <div class="demo-nav-item"><i></i>Bid &amp; Contract Intake</div>
+                  <div class="demo-nav-item"><i></i>Field Dispatch</div>
+                  <div class="demo-nav-item"><i></i>Lead Qualification</div>
+                  <div class="demo-nav-item"><i></i>Client Onboarding</div>
+                  <div class="demo-nav-item"><i></i>Invoice Processing</div>
+                </div>
+              </aside>
+              <div class="demo-main">
+                <div class="demo-prompt">When an RFP reaches the inbox, brief the right team, research the site, and prepare a review-ready pursuit package.</div>
+                <div class="demo-grid">
+                  <div class="demo-log">
+                    <div class="demo-panel-head"><span>System activity</span><span class="status-live" data-demo-status data-state="idle">waiting</span></div>
+                    <div class="demo-steps">
+                      <div class="demo-step"><span class="demo-step-icon">01</span><div><strong>RFP intake</strong><small>Read email, attachments, dates, and scope</small></div><span class="step-check">queued</span></div>
+                      <div class="demo-step"><span class="demo-step-icon">02</span><div><strong>Team brief</strong><small>Route a structured pursuit card into Teams</small></div><span class="step-check">queued</span></div>
+                      <div class="demo-step"><span class="demo-step-icon">03</span><div><strong>Site research</strong><small>Gather parcel, jurisdiction, and ArcGIS context</small></div><span class="step-check">queued</span></div>
+                      <div class="demo-step"><span class="demo-step-icon">04</span><div><strong>Scope preparation</strong><small>Organize requirements, gaps, and pricing context</small></div><span class="step-check">queued</span></div>
+                      <div class="demo-step"><span class="demo-step-icon">05</span><div><strong>Pursuit package</strong><small>Assemble the brief, source links, and draft response</small></div><span class="step-check">queued</span></div>
+                    </div>
+                  </div>
+                  <aside class="demo-summary">
+                    <div class="demo-panel-head"><span>Pursuit brief</span><span class="status-live" data-demo-summary-status data-state="idle">assembling</span></div>
+                    <div class="summary-body">
+                      <div class="summary-metric" data-summary-step="1"><span>Requirements captured</span><strong>18 / 18</strong></div>
+                      <div class="summary-metric" data-summary-step="3"><span>Open questions</span><strong>03</strong></div>
+                      <div class="summary-metric" data-summary-step="3"><span>Sources attached</span><strong>12</strong></div>
+                      <div class="summary-result" data-summary-step="5"><span>Output</span><strong>Pursuit package</strong><small>Brief / site context / scope</small></div>
+                    </div>
+                  </aside>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" aria-labelledby="capabilities-title">
+        <p class="scramble-label" data-label="Capabilities">Capabilities</p>
+        <div class="section-head reveal"><div><h2 id="capabilities-title">Deep capabilities<br />designed for real operations.</h2></div></div>
+        <div class="feature-grid capability-grid">
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage connected-stage integration-sphere-stage" aria-hidden="true">
+              <canvas data-wireframe="integration-sphere" data-animated-wireframe></canvas>
+              <span class="integration-tool-node node-outlook" data-integration-node><img src="public/brand-icons/outlook.svg" alt="" /></span>
+              <span class="integration-tool-node node-teams" data-integration-node><img src="public/brand-icons/teams.svg" alt="" /></span>
+              <span class="integration-tool-node node-arcgis" data-integration-node><img src="public/brand-icons/arcgis.svg" alt="" /></span>
+              <span class="integration-tool-node node-autocad" data-integration-node><img src="public/brand-icons/autocad.svg" alt="" /></span>
+              <span class="integration-tool-node node-excel" data-integration-node><img src="public/brand-icons/excel.svg" alt="" /></span>
+              <span class="integration-tool-node node-sharepoint" data-integration-node><img src="public/brand-icons/sharepoint.svg" alt="" /></span>
+              <span class="integration-tool-node node-slack" data-integration-node><img src="public/brand-icons/slack.svg" alt="" /></span>
+              <span class="integration-tool-node node-revit" data-integration-node><img src="public/brand-icons/revit.svg" alt="" /></span>
+            </div>
+            <div class="feature-copy-block"><p class="micro-label">Connected</p><h3>Integrations that go beyond the basics.</h3><p>APIs, approved browser workflows, databases, documents, and purpose-built adapters.</p></div>
+          </article>
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage trigger-stage agent-hierarchy-stage" aria-hidden="true">
+              <canvas data-wireframe="agent-hierarchy" data-animated-wireframe></canvas>
+              <span class="hierarchy-terminal hierarchy-task" data-hierarchy-node="task"><i></i>New task</span>
+              <span class="hierarchy-agent hierarchy-root" data-hierarchy-node="hermes"><b>H</b><span><strong>Hermes</strong><small>Coordinator</small></span></span>
+              <span class="hierarchy-agent hierarchy-atlas" data-hierarchy-node="atlas"><b>A</b><span><strong>Atlas</strong><small>Research</small></span></span>
+              <span class="hierarchy-agent hierarchy-plato" data-hierarchy-node="plato"><b>P</b><span><strong>Plato</strong><small>Reasoning</small></span></span>
+              <span class="hierarchy-agent hierarchy-daedalus" data-hierarchy-node="daedalus"><b>D</b><span><strong>Daedalus</strong><small>Build</small></span></span>
+              <span class="hierarchy-terminal hierarchy-result" data-hierarchy-node="result"><i></i>Operating result</span>
+            </div>
+            <div class="feature-copy-block"><p class="micro-label">Always on</p><h3>Systems that run without waiting for a prompt.</h3><p>Scheduled, event-driven, or continuous. The right workflow starts automatically.</p></div>
+          </article>
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage precision-target-stage" aria-hidden="true"><canvas data-wireframe="precision-target" data-animated-wireframe></canvas></div>
+            <div class="feature-copy-block"><p class="micro-label">Web + GIS research</p><h3>Research that reaches the real sources.</h3><p>Public records, GIS, websites, documents, and internal context gathered into one cited brief.</p></div>
+          </article>
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage anywhere-stage earth-channel-stage" aria-hidden="true">
+              <canvas data-wireframe="globe" data-animated-wireframe></canvas>
+              <span class="channel-badge badge-teams"><img src="public/brand-icons/teams.svg" alt="" /></span>
+              <span class="channel-badge badge-slack"><img src="public/brand-icons/slack.svg" alt="" /></span>
+              <span class="channel-badge badge-telegram"><img src="public/brand-icons/telegram.svg" alt="" /></span>
+              <span class="channel-badge badge-messenger"><img src="public/brand-icons/messenger.svg" alt="" /></span>
+              <span class="channel-badge badge-whatsapp"><img src="public/brand-icons/whatsapp.svg" alt="" /></span>
+            </div>
+            <div class="feature-copy-block"><p class="micro-label">Available anywhere</p><h3>Every system accessible where work happens.</h3><p>Teams, Slack, messaging, dashboards, and field tools. Work reports back where the team already operates.</p></div>
+          </article>
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage interface-stage" aria-hidden="true"><canvas data-wireframe="plane"></canvas><div class="floating-control search-control">Find parcel <b>|</b></div><div class="floating-control toggle-control"><span>Review mode<small>Critical actions</small></span><i></i></div><div class="floating-control approve-control"><strong>Approve</strong><span>Return</span></div><div class="floating-control range-control"><span>Confidence <b>0.92</b></span><i></i></div><div class="floating-control check-control"><strong>Today</strong><span>&#10003; Scope mapped</span><span>&#9633; Price review</span></div></div>
+            <div class="feature-copy-block"><p class="micro-label">Custom interfaces</p><h3>Operational apps built for the job.</h3><p>Dashboards, queues, maps, forms, and review surfaces instead of forcing every workflow into chat.</p></div>
+          </article>
+          <article class="feature-card feature-third feature-showcase feature-compact dot-field reveal">
+            <div class="feature-stage model-stage" aria-hidden="true"><div class="model-routing"><div><span>model routing</span><em>live</em></div><p><span>Research</span><b><i></i>approved reasoning model</b></p><p><span>Extraction</span><b><i></i>approved fast model</b></p><p><span>Drafting</span><b><i></i>approved writing model</b></p></div></div>
+            <div class="feature-copy-block"><p class="micro-label">Any model</p><h3>Powered by the models you choose.</h3><p>Route research, writing, extraction, and reasoning to approved providers instead of locking the operation to one model.</p><div class="provider-line"><span>OpenAI</span><span>Anthropic</span><span>Google</span></div></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="system-band collaboration-band" data-tab-group data-scroll-band aria-labelledby="collaboration-title">
+        <div class="band-grid">
+          <div class="band-copy reveal">
+            <p class="scramble-label" data-label="Collaboration">Collaboration</p>
+            <h2 id="collaboration-title">The whole operation stays in the loop.</h2>
+            <div class="band-tabs" role="tablist" aria-label="Collaboration capabilities">
+              <button class="band-tab is-active" type="button" role="tab" aria-selected="true" data-tab="visible">Visible <span>01</span></button><button class="band-tab" type="button" role="tab" aria-selected="false" data-tab="reusable">Reusable <span>02</span></button><button class="band-tab" type="button" role="tab" aria-selected="false" data-tab="coordinated">Coordinated <span>03</span></button><button class="band-tab" type="button" role="tab" aria-selected="false" data-tab="improving">Improving <span>04</span></button>
+            </div>
+            <div class="band-scroll-progress" aria-hidden="true"><i></i><b></b></div>
+            <article class="band-detail is-active" data-tab-panel="visible"><h3 data-number="01">People and systems share one operating view.</h3><p>Requests, sources, work, exceptions, and approvals stay visible to the team responsible for the outcome.</p></article>
+            <article class="band-detail" data-tab-panel="reusable"><h3 data-number="02">Good work becomes a repeatable system.</h3><p>Approved templates, rules, research methods, and review standards can be reused across the firm.</p></article>
+            <article class="band-detail" data-tab-panel="coordinated"><h3 data-number="03">Specialized roles hand work off cleanly.</h3><p>Intake, research, GIS, drafting, and review components coordinate without becoming one opaque agent.</p></article>
+            <article class="band-detail" data-tab-panel="improving"><h3 data-number="04">Every exception makes the next run better.</h3><p>Review feedback and edge cases become explicit improvements to the workflow.</p></article>
+          </div>
+          <div class="band-visual reveal" aria-label="Shared project workflow conversation">
+            <div class="thread-head">Operations Command</div>
+            <div class="thread-body">
+              <div class="message"><span class="message-avatar">MP</span><div><strong>Maya / Operations Director</strong><p>Scan every active project. Which deadlines, budgets, or client commitments need attention this week?</p></div></div>
+              <div class="message agent"><span class="message-avatar">AI</span><div><strong>Company Agent</strong><p>I found three risks across schedules, field reports, and scope changes. Each is traced to its source and routed to the responsible lead.</p></div></div>
+              <div class="message"><span class="message-avatar">JR</span><div><strong>Jordan / Principal</strong><p>Build recovery plans, check team capacity, and draft the client updates.</p></div></div>
+              <div class="message agent"><span class="message-avatar">AI</span><div><strong>Company Agent</strong><p>Plans are sequenced against live workloads. Two staffing conflicts and three client drafts are ready for review.</p></div></div>
+            </div>
+            <div class="thread-input"><span>Ask the company agent...</span><i>&uarr;</i></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="system-band dark-band security-scroll-band" data-security-scroll aria-labelledby="security-title">
+        <div class="band-grid">
+          <div class="band-copy security-flow-copy reveal">
+            <p class="scramble-label" data-label="01 / Data flow">01 / Data flow</p>
+            <h2 id="security-title">Only the right context enters.</h2>
+            <p class="security-exit-line">Only review-ready work leaves.</p>
+            <div class="security-flow-tabs" role="tablist" aria-label="Controlled data flow">
+              <button class="security-flow-tab is-active" type="button" role="tab" aria-selected="true" data-security-target="0"><span>01</span>You share</button>
+              <button class="security-flow-tab" type="button" role="tab" aria-selected="false" data-security-target="1"><span>02</span>System works</button>
+              <button class="security-flow-tab" type="button" role="tab" aria-selected="false" data-security-target="2"><span>03</span>You receive</button>
+            </div>
+            <div class="security-flow-progress" aria-hidden="true"><i></i><b></b></div>
+            <div class="security-flow-details">
+              <article class="security-flow-detail is-active" data-security-step="0"><h3>Approved context.</h3><p>Selected systems, records, documents, and operating rules.</p></article>
+              <article class="security-flow-detail" data-security-step="1"><h3>Scoped execution.</h3><p>Defined permissions, tools, actions, and human review gates.</p></article>
+              <article class="security-flow-detail" data-security-step="2"><h3>Controlled output.</h3><p>Prepared work, source context, exceptions, and approval gates.</p></article>
+            </div>
+          </div>
+          <div class="security-visual security-lock-visual reveal" aria-hidden="true"><canvas class="security-lock-canvas" data-security-lock></canvas></div>
+        </div>
+      </section>
+
+      <section class="offer-field" aria-labelledby="offers-title">
+        <canvas class="workflow-branch-visual" data-workflow-branch aria-hidden="true"></canvas>
+        <div class="offer-field-heading reveal"><h2 id="offers-title">Three ways to put AI to work, built for your firm.</h2></div>
+        <div class="offer-grid">
+          <article class="offer-card offer-card-primary reveal">
+            <div class="offer-card-top"><span class="offer-number">01</span><div><p class="micro-label">AI Engineering</p><p class="offer-kicker">Agents + systems + software</p></div></div>
+            <h3>AI employees and systems that run the work.</h3>
+            <p class="offer-summary">We build AI employees, automated systems, and operational software around work your team should not still do by hand.</p>
+            <ul class="offer-list">
+              <li><span><strong>AI employees.</strong> Specialized agents for research, drafting, monitoring, and coordination.</span></li>
+              <li><span><strong>Automated systems.</strong> Scheduled, event-driven, or continuous workflows that operate without a prompt.</span></li>
+              <li><span><strong>Purpose-built software.</strong> Dashboards, internal tools, portals, and field applications.</span></li>
+              <li><span><strong>Deep integrations.</strong> Email, Teams, ArcGIS, databases, documents, and your existing stack.</span></li>
+              <li><span><strong>Review-ready output.</strong> Source context, exceptions, and approval gates remain visible.</span></li>
+            </ul>
+            <a class="offer-link" href="contact.html">Build a Custom System</a>
+          </article>
+          <article class="offer-card reveal">
+            <div class="offer-card-top"><span class="offer-number">02</span><div><p class="micro-label">AI Strategy</p><p class="offer-kicker">Advisory + workflow design</p></div></div>
+            <h3>Find where AI actually pays off.</h3>
+            <p class="offer-summary">We study how work moves through your firm, identify expensive friction, and turn the best opportunities into a practical roadmap.</p>
+            <ul class="offer-list">
+              <li><span><strong>Workflow diagnosis.</strong> Map bottlenecks, handoffs, repetitive work, and review points.</span></li>
+              <li><span><strong>Opportunity roadmap.</strong> Prioritize training, automation, software, and custom systems by value and feasibility.</span></li>
+              <li><span><strong>Leadership alignment.</strong> Define where AI creates leverage, where people stay, and how success is measured.</span></li>
+              <li><span><strong>Governance and review.</strong> Set data boundaries, ownership, approvals, and operating controls.</span></li>
+            </ul>
+            <a class="offer-link" href="services.html#strategy">Explore AI Strategy</a>
+          </article>
+          <article class="offer-card offer-card-training reveal">
+            <div class="offer-card-top"><span class="offer-number">03</span><div><p class="micro-label">AI Training</p><p class="offer-kicker">Role-based team enablement</p></div></div>
+            <h3>AI across the work your team already does.</h3>
+            <p class="offer-summary">Hands-on training for leaders, business development, project teams, and operations using approved tools and real firm workflows.</p>
+            <ul class="offer-list">
+              <li><span><strong>No coding required.</strong> Build practical capability from the first session.</span></li>
+              <li><span><strong>Built for each role.</strong> Leadership, proposals, project delivery, and operations learn what applies to them.</span></li>
+              <li><span><strong>Real workflow practice.</strong> Work through research, documents, coordination, reporting, and client communication.</span></li>
+              <li><span><strong>Repeatable standards.</strong> Establish source checks, review patterns, data rules, and safe use.</span></li>
+            </ul>
+            <a class="offer-link" href="services.html#training">Explore AI Training</a>
+          </article>
+        </div>
+      </section>
     </main>
 
-    <script>
-      const TRAIN_EMOJIS = ["🚂", "🚃", "🚅", "🚋", "🚄"];
-      const PUFF_CHARS = ["·", "°", "・", "∘"];
-      const LANE_COUNT = 5;
-      const DISPATCH_THROTTLE_MS = 120;
-      const PUFF_COUNT = 4;
-      const MIN_DURATION_MS = 4500;
-      const MAX_DURATION_MS = 7500;
-
-      const dispatcher = document.querySelector("#dispatcher");
-      const hero = document.querySelector("#hero");
-      const muteButton = document.querySelector("#mute");
-      const counter = document.querySelector("#counter");
-      const choo = new Audio("./public/choo-choo.mp3");
-      choo.preload = "auto";
-
-      let count = 0;
-      let nextId = 1;
-      let lastDispatch = 0;
-      let lastLane = -1;
-      let lastDirection = "rtl";
-      let muted = localStorage.getItem("wtc:muted") === "1";
-
-      function pick(items) {
-        return items[Math.floor(Math.random() * items.length)];
-      }
-
-      function syncMuteButton() {
-        muteButton.textContent = muted ? "🔇" : "🔊";
-        muteButton.setAttribute("aria-label", muted ? "Unmute" : "Mute");
-        muteButton.setAttribute("aria-pressed", String(muted));
-        localStorage.setItem("wtc:muted", muted ? "1" : "0");
-      }
-
-      function updateCounter() {
-        const noun = count === 1 ? "train" : "trains";
-        counter.textContent = `${count} ${noun} dispatched`;
-        document.title =
-          count === 0 ? "welcome to conductor" : `welcome to conductor (${count})`;
-      }
-
-      function playChoo() {
-        if (muted) return;
-        const node = choo.cloneNode(true);
-        node.volume = 0.28;
-        node.play().catch(() => {});
-      }
-
-      function removeNode(event) {
-        event.currentTarget.remove();
-      }
-
-      function createSteam(train, delay) {
-        window.setTimeout(() => {
-          const elapsed = performance.now() - train.startedAt;
-          const progress = Math.min(elapsed / train.durationMs, 1);
-          const puff = document.createElement("span");
-          const x =
-            train.direction === "ltr"
-              ? -15 + 130 * progress
-              : 115 - 130 * progress;
-
-          puff.className = "steam";
-          puff.textContent = pick(PUFF_CHARS);
-          puff.style.left = `${x}vw`;
-          puff.style.top = `${10 + train.lane * 16}vh`;
-          puff.addEventListener("animationend", removeNode, { once: true });
-          dispatcher.append(puff);
-        }, delay);
-      }
-
-      function dispatchTrain() {
-        const now = performance.now();
-        if (now - lastDispatch < DISPATCH_THROTTLE_MS) return;
-        lastDispatch = now;
-
-        let lane = Math.floor(Math.random() * LANE_COUNT);
-        if (lane === lastLane) lane = (lane + 1) % LANE_COUNT;
-        lastLane = lane;
-
-        const direction = lastDirection === "ltr" ? "rtl" : "ltr";
-        lastDirection = direction;
-
-        const durationMs =
-          MIN_DURATION_MS + Math.random() * (MAX_DURATION_MS - MIN_DURATION_MS);
-        const train = {
-          id: nextId++,
-          lane,
-          direction,
-          durationMs,
-          startedAt: now,
-        };
-
-        const trainNode = document.createElement("span");
-        trainNode.className = `train ${direction}`;
-        trainNode.textContent = pick(TRAIN_EMOJIS);
-        trainNode.style.top = `${10 + lane * 16}vh`;
-        trainNode.style.animationDuration = `${durationMs}ms`;
-        trainNode.addEventListener("animationend", removeNode, { once: true });
-        dispatcher.append(trainNode);
-
-        count += 1;
-        hero.classList.add("dispatched");
-        updateCounter();
-        playChoo();
-
-        for (let i = 0; i < PUFF_COUNT; i += 1) {
-          createSteam(train, (durationMs / (PUFF_COUNT + 1)) * (i + 1));
-        }
-      }
-
-      dispatcher.addEventListener("click", dispatchTrain);
-      muteButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        muted = !muted;
-        syncMuteButton();
-      });
-
-      window.addEventListener("keydown", (event) => {
-        if (event.code === "Space" || event.code === "Enter") {
-          event.preventDefault();
-          dispatchTrain();
-        } else if (event.key === "m" || event.key === "M") {
-          muted = !muted;
-          syncMuteButton();
-        }
-      });
-
-      syncMuteButton();
-      updateCounter();
-    </script>
+    <div data-site-footer></div>
   </body>
 </html>
