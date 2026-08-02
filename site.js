@@ -9,6 +9,7 @@ if (shellHeader) {
   const nav = [
     ["services", "services.html", "Services"],
     ["process", "how-we-work.html", "How We Work"],
+    ["capabilities", "capabilities.html", "Capabilities"],
     ["industries", "industries.html", "Industries"],
     ["about", "about.html", "About"],
   ];
@@ -17,15 +18,15 @@ if (shellHeader) {
       <div class="nav-inner">
         <a class="brand" href="index.html" aria-label="Custom AI Systems home"><span class="brand-mark" aria-hidden="true"></span><span>Custom AI Systems</span></a>
         <nav class="site-nav" aria-label="Primary navigation">${nav.map(([key, href, label]) => `<a href="${href}" ${current === key ? 'aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
-        <div class="header-actions"><a class="header-link" href="contact.html">Start a Project</a></div>
+        <div class="header-actions"><a class="header-link" href="contact.html#schedule">Start a Project</a></div>
         <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
         <div class="scroll-progress" aria-hidden="true"></div>
       </div>
     </header>
     <nav class="mobile-menu" aria-label="Mobile navigation">
-      <a href="services.html">Services</a><a href="how-we-work.html">How We Work</a><a href="industries.html">Industries</a><a href="about.html">About</a><a href="enterprise.html">Enterprise</a><a href="readiness.html">AI Readiness</a><a href="contact.html">Start a Project</a><small>Custom systems / architecture + engineering + construction</small>
+      <a href="services.html">Services</a><a href="how-we-work.html">How We Work</a><a href="capabilities.html">Capabilities</a><a href="industries.html">Industries</a><a href="about.html">About</a><a href="enterprise.html">Enterprise</a><a href="readiness.html">AI Readiness</a><a href="contact.html#schedule">Start a Project</a><small>Custom systems / architecture + engineering + construction</small>
     </nav>
-    ${current === "contact" ? "" : '<a class="mobile-sticky-cta" href="contact.html">Start a Project</a>'}`;
+    ${current === "contact" ? "" : '<a class="mobile-sticky-cta" href="contact.html#schedule">Start a Project</a>'}`;
 }
 
 const shellFooter = document.querySelector("[data-site-footer]");
@@ -33,7 +34,7 @@ if (shellFooter) {
   shellFooter.outerHTML = `
     <footer class="site-footer">
       <div class="footer-brand"><p class="eyebrow">Custom AI Systems</p><h2>Built around how the work actually moves.</h2></div>
-      <div class="footer-column"><h3>Offer</h3><a href="services.html">Services</a><a href="included.html">What Is Included</a><a href="enterprise.html">Enterprise</a><a href="industries.html">Industries</a></div>
+      <div class="footer-column"><h3>Offer</h3><a href="services.html">Services</a><a href="capabilities.html">Capabilities</a><a href="included.html">What Is Included</a><a href="enterprise.html">Enterprise</a><a href="industries.html">Industries</a></div>
       <div class="footer-column"><h3>Company</h3><a href="how-we-work.html">How We Work</a><a href="about.html">About</a></div>
       <div class="footer-column"><h3>Resources</h3><a href="readiness.html">AI Readiness</a><a href="roi.html">ROI Calculator</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
       <div class="footer-base"><span>&copy; <span data-current-year></span> Custom AI Systems</span><span>San Francisco / AI systems</span></div>
@@ -139,7 +140,7 @@ const workflowBranchCanvases = [...document.querySelectorAll("[data-workflow-bra
 const workflowPointerStates = new WeakMap();
 
 workflowBranchCanvases.forEach((canvas) => {
-  const interactionSurface = canvas.closest(".gamut-hero, .page-hero, .offer-field, .cta") || canvas;
+  const interactionSurface = canvas.closest(".gamut-hero, .page-hero, .market-signal, .system-thesis, .offer-field, .service-visual, .feature-card, .cta") || canvas;
   const state = {
     clientX: 0,
     clientY: 0,
@@ -1585,6 +1586,7 @@ const routePoint = (points, progress) => {
 };
 
 const drawWorkflowBranch = (canvas, time) => {
+  time += Number(canvas.dataset.hexPhase || 0);
   const { context, width, height, rect } = prepareCanvas(canvas);
   const mobile = width < 700;
   const phase = time / 1000;
@@ -1902,6 +1904,74 @@ if (reducedMotion || !("IntersectionObserver" in window)) {
     { threshold: 0.08, rootMargin: "0px 0px -6% 0px" },
   );
   revealItems.forEach((item) => revealObserver.observe(item));
+}
+
+const marketSignal = document.querySelector("[data-market-signal]");
+if (marketSignal) {
+  const counters = [...marketSignal.querySelectorAll("[data-market-count]")];
+  const setFinalValues = () => counters.forEach((counter) => {
+    counter.textContent = Number(counter.dataset.marketCount).toLocaleString("en-US");
+  });
+  const runCounters = () => {
+    if (marketSignal.dataset.counted === "true") return;
+    marketSignal.dataset.counted = "true";
+    marketSignal.classList.add("is-visible");
+    if (reducedMotion) {
+      setFinalValues();
+      return;
+    }
+    const duration = 1900;
+    const start = performance.now();
+    const tick = (time) => {
+      const progress = clamp((time - start) / duration);
+      const eased = 1 - (1 - progress) ** 3;
+      counters.forEach((counter) => {
+        const target = Number(counter.dataset.marketCount);
+        counter.textContent = Math.round(target * eased).toLocaleString("en-US");
+      });
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    runCounters();
+  } else {
+    const marketObserver = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      runCounters();
+      marketObserver.disconnect();
+    }, { threshold: .18 });
+    marketObserver.observe(marketSignal);
+  }
+}
+
+const scrollWordGroups = [...document.querySelectorAll("[data-scroll-words]")];
+if (scrollWordGroups.length) {
+  let scrollWordsFrame = 0;
+  const updateScrollWords = () => {
+    scrollWordsFrame = 0;
+    scrollWordGroups.forEach((group) => {
+      const section = group.closest(".system-thesis") || group;
+      const words = [...group.children];
+      const rect = section.getBoundingClientRect();
+      const pin = section.querySelector(".system-thesis-pin");
+      const stickyTop = pin ? parseFloat(getComputedStyle(pin).top) || 0 : window.innerHeight * .2;
+      const travel = pin ? Math.max(240, section.offsetHeight - pin.offsetHeight) : Math.max(220, window.innerHeight * .52);
+      const progress = reducedMotion ? 1 : clamp((stickyTop - rect.top) / travel);
+      words.forEach((word, index) => {
+        const threshold = words.length === 1 ? 0 : index / (words.length - 1);
+        word.classList.toggle("is-lit", progress >= threshold * .82 + .08);
+      });
+    });
+  };
+  const requestScrollWordUpdate = () => {
+    if (scrollWordsFrame) return;
+    scrollWordsFrame = requestAnimationFrame(updateScrollWords);
+  };
+  window.addEventListener("scroll", requestScrollWordUpdate, { passive: true });
+  window.addEventListener("resize", requestScrollWordUpdate, { passive: true });
+  updateScrollWords();
 }
 
 const rotatingWord = document.querySelector("[data-rotating-word]");
