@@ -1953,7 +1953,7 @@ if (scrollWordGroups.length) {
     scrollWordsFrame = 0;
     scrollWordGroups.forEach((group) => {
       const section = group.closest(".system-thesis") || group;
-      const words = [...group.children];
+      const words = [...group.querySelectorAll(":scope > i")];
       const rect = section.getBoundingClientRect();
       const pin = section.querySelector(".system-thesis-pin");
       const stickyTop = pin ? parseFloat(getComputedStyle(pin).top) || 0 : window.innerHeight * .2;
