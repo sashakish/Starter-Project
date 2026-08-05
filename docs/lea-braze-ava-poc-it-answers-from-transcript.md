@@ -38,9 +38,11 @@ Transcript evidence: lines 137-152.
 
 **Status: Partial**
 
-The dedicated Exchange Online mailbox/service-identity pattern fits the environment. Because all mailboxes are in Exchange Online, Microsoft Graph remains the logical API. However, Lea & Braze has no existing Graph integration, and the meeting did not explicitly approve the proposed Entra application, Graph permissions, certificate/secret method, or mailbox access policy.
+The dedicated Exchange Online mailbox/service-identity pattern fits the environment. Exchange Online includes native Microsoft Graph support, so Lea & Braze does not need to install or enable a separate Graph connector. The statement in the meeting that the company has no existing Graph integration means that no Ava-specific Graph application and access configuration exists yet; it does not mean that Exchange Online lacks Graph support.
 
-Working implementation: IT creates the company mailbox, adds it to the approved distribution lists, and creates or approves a dedicated least-privilege Entra application whose Graph access is limited to that mailbox.
+Working implementation: IT creates the company mailbox, adds it to the approved distribution lists, registers a dedicated Ava application in Entra ID, grants only the required Microsoft Graph mail permissions and admin consent, and configures an IT-approved credential. Exchange Online RBAC for Applications should limit Ava's access to the approved mailbox. The meeting did not finalize or approve those permissions, credentials, or access rules.
+
+Technical references: [Microsoft Graph mail API](https://learn.microsoft.com/en-us/graph/api/resources/mail-api-overview?view=graph-rest-1.0), [Microsoft identity permissions and consent](https://learn.microsoft.com/en-us/entra/identity-platform/permissions-consent-overview), and [Exchange Online RBAC for Applications](https://learn.microsoft.com/en-us/exchange/permissions-exo/application-rbac).
 
 Transcript evidence: lines 39-55 and 148-152.
 
