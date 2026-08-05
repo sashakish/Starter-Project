@@ -2,7 +2,7 @@
 
 Source: `2026-08-03-ava-poc-full-meeting-transcript.md`
 
-This is a transcript-derived working record, not final IT approval. The source is an automated transcript and contains recognition errors. `Confirmed` means the meeting directly answered the question. `Partial` means part of the answer is supported, but a follow-up is still required. `Not answered` means the transcript does not provide a reliable answer.
+This is a transcript-derived working record, supplemented by post-meeting clarifications, and is not final IT approval. The source transcript is automated and contains recognition errors. `Confirmed` means the meeting directly answered the question. `Partial` means part of the answer is supported, but a follow-up is still required. `Not answered` means the available record does not provide a reliable answer.
 
 ## Email and Teams
 
@@ -48,9 +48,11 @@ Transcript evidence: lines 39-55 and 148-152.
 
 ### 5. Are there email constraints such as forwarding blocks, limits, disclaimers, spam rules, or retention?
 
-**Status: Not answered**
+**Status: Confirmed**
 
-No special email constraint was identified during the meeting. The proposed design avoids external auto-forwarding by adding a company mailbox directly to the distribution lists. Attachment limits, signatures, disclaimers, spam protection, journaling, and retention were not discussed and still require confirmation from IT.
+John said there are no special email constraints that the POC needs to plan around. The proposed design also avoids external auto-forwarding by adding a company mailbox directly to the approved distribution lists. Standard Exchange Online tenant controls will continue to apply, but no forwarding block, attachment limit, signature, disclaimer, spam-protection, journaling, or retention rule was identified as a POC blocker.
+
+Meeting answer clarified after review of the automated transcript.
 
 ### 6. Is Teams in the same tenant, and can Ava use a limited Team or channel?
 
