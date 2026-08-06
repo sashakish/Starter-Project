@@ -10,7 +10,9 @@
 
 Ava will work beside the existing quote process, not replace it. She will receive copies of approved inquiries, organize the request, identify missing information, research the property and jurisdiction, retrieve approved comparable quotes, prepare a branded draft package, and present it for review. Jim or another named Lea & Braze reviewer retains professional judgment, pricing authority, and approval of the exact customer message and attachment.
 
-The measured POC is limited to one common quote family, up to three jurisdictions, one to three approved layouts, at least 50 reviewed historical cases, and a target of 15-25 eligible parallel cases. The existing workflow and Monday.com remain unchanged.
+The POC is intended to evaluate Ava across **all quote families, all jurisdictions Lea & Braze serves, and all current approved quote layouts**, rather than a narrow subset. Work begins with an inventory of those categories and at least 50 reviewed historical cases. Fifty is a starting minimum, not a cap; the set expands as needed so every major quote family, jurisdiction, and layout has representative coverage.
+
+A historical case pairs the original inquiry and attachments with the final approved quote and any corrections. Some cases are used to configure Ava, while a separate holdout set tests whether she can produce the right result without seeing the answer. After that historical gate passes, Ava processes an initial target of 15-25 new eligible inquiries in parallel with the team. Parallel testing continues when the incoming mix does not adequately represent the major categories. The existing workflow and Monday.com remain unchanged.
 
 **Included:** Exchange Online intake, approved attachments, ArcGIS/public research, a controlled SMB/DFS data subset, comparable-quote retrieval, quote drafting, Teams notifications, an authenticated review dashboard, audit history, and an approval-gated final send.
 
@@ -50,10 +52,10 @@ Ava is one user-facing digital worker with bounded internal capabilities: intake
 
 | Weeks | Work and exit result |
 | --- | --- |
-| **1-2: Define and connect** | Confirm quote family, reviewers, baseline, approved historical set, data rules, and stop/escalation policy. Deploy the AWS environment; configure Entra/Graph, Ava mailbox, Teams channel, dashboard sign-in, secrets, logging, and private network access. **Exit:** IT-approved nonproduction path with outbound sending disabled. |
-| **3-4: Build the controlled workflow** | Connect the approved SMB folders, migrate durable state, index approved comparables, validate ArcGIS research, configure model schemas/prompts, and reproduce Lea & Braze's quote format. **Exit:** historical inquiry produces a source-linked draft package. |
+| **1-2: Define and connect** | Inventory quote families, jurisdictions, layouts, reviewers, baseline, historical coverage, data rules, and stop/escalation policy. Deploy the AWS environment; configure Entra/Graph, Ava mailbox, Teams channel, dashboard sign-in, secrets, logging, and private network access. **Exit:** IT-approved nonproduction path with outbound sending disabled. |
+| **3-4: Build the controlled workflow** | Connect the approved SMB folders, migrate durable state, index the approved template library and representative comparables, validate ArcGIS research, and configure model schemas/prompts. **Exit:** historical inquiries across the coverage set produce source-linked draft packages. |
 | **5-6: Evaluate and harden** | Add dashboard approval, audit history, alerts, retries, duplicate prevention, attachment checks, backup/restore, and emergency shutoff. Replay the golden historical set and correct systematic failures. **Exit:** safety tests pass and quality reaches the parallel-run threshold. |
-| **7-8: Parallel run and decision** | Run Ava beside the existing process on eligible inquiries. Measure speed, hands-on time, corrections, and operating cost. Customer sending remains disabled unless Jim and IT authorize a monitored controlled-send window. **Exit:** scorecard, risk register, operating runbook, and go/revise/stop recommendation. |
+| **7-8: Parallel run and decision** | Run Ava beside the existing process on an initial target of 15-25 new eligible inquiries. Measure speed, hands-on time, corrections, operating cost, and category coverage. Customer sending remains disabled unless Jim and IT authorize a monitored controlled-send window. **Exit:** scorecard, coverage gaps, risk register, operating runbook, and go/revise/stop recommendation. |
 
 ## Pass/Fail Measures
 
@@ -61,6 +63,7 @@ The POC proceeds beyond parallel testing only when safety and business value pas
 
 - **0** unauthorized, duplicate, wrong-recipient, or wrong-attachment sends.
 - At least **80%** of routine first-pass Ava packages have no material error or omission and perform no worse than the manual first pass.
+- Results are reported by quote family, jurisdiction, and layout; no major category is called validated without representative historical and parallel evidence.
 - Median time and human hands-on effort to a materially acceptable package are at least **50% lower** than the manual baseline.
 - Median reviewer hands-on time for a routine complete package is **10 minutes or less**.
 - **100%** of measured cases preserve sources, model/prompt version, output versions, human changes, approval identity, and final action.
@@ -68,9 +71,9 @@ The POC proceeds beyond parallel testing only when safety and business value pas
 
 ## Deliverables and Responsibilities
 
-**POC deliverables:** working AWS-hosted Ava workflow; configured mailbox, Teams, dashboard, file connector, research and quote pipeline; historical and parallel-run test results; security and operations runbook; case-level audit export; final scorecard; and a scoped MVP recommendation.
+**POC deliverables:** working AWS-hosted Ava workflow; configured mailbox, Teams, dashboard, file connector, research and quote pipeline; quote-family/jurisdiction/layout coverage matrix; historical and parallel-run test results; security and operations runbook; case-level audit export; final scorecard; and a scoped MVP recommendation.
 
-**Lea & Braze provides:** Jim's business decisions and final approvals; IT-created identities, permissions, network rules, POC folders, and incident contacts; timely access to at least 50 approved historical cases and selected templates; two to four pilot reviewers; and confirmation of permitted data/model use.
+**Lea & Braze provides:** Jim's business decisions and final approvals; IT-created identities, permissions, network rules, POC folders, and incident contacts; timely access to at least 50 approved historical cases plus additional cases needed for representative coverage; the complete approved quote-template library; two to four pilot reviewers; and confirmation of permitted data/model use.
 
 **Consultant provides:** implementation, migration of the demonstrated workflow, configuration support, testing, monitoring during the POC, documentation, weekly status, and the final recommendation. Lea & Braze owns all professional and commercial decisions.
 
