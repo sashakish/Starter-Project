@@ -2,13 +2,9 @@
 
 **Prepared for:** Jim and Lea & Braze
 
-**Date:** August 5, 2026
+**Date:** August 6, 2026
 
 **Decision requested:** Approve a controlled eight-week engagement to determine whether Ava can prepare routine project quote packages faster, with acceptable accuracy, while Lea & Braze retains final authority.
-
-| Engagement | Rate | Weekly limit | Total limit | Maximum project cost |
-| --- | ---: | ---: | ---: | ---: |
-| 8-week Ava POC | **$78/hour** | **20 hours/week** | **160 hours** | **$12,480** |
 
 ## Purpose and POC Boundary
 
@@ -59,8 +55,6 @@ Ava is one user-facing digital worker with bounded internal capabilities: intake
 | **5-6: Evaluate and harden** | Add dashboard approval, audit history, alerts, retries, duplicate prevention, attachment checks, backup/restore, and emergency shutoff. Replay the golden historical set and correct systematic failures. **Exit:** safety tests pass and quality reaches the parallel-run threshold. |
 | **7-8: Parallel run and decision** | Run Ava beside the existing process on eligible inquiries. Measure speed, hands-on time, corrections, and operating cost. Customer sending remains disabled unless Jim and IT authorize a monitored controlled-send window. **Exit:** scorecard, risk register, operating runbook, and go/revise/stop recommendation. |
 
-Access or approval delays may move work within the eight weeks, but they do not increase the hourly or total cap without written agreement.
-
 ## Pass/Fail Measures
 
 The POC proceeds beyond parallel testing only when safety and business value pass together:
@@ -79,15 +73,6 @@ The POC proceeds beyond parallel testing only when safety and business value pas
 **Lea & Braze provides:** Jim's business decisions and final approvals; IT-created identities, permissions, network rules, POC folders, and incident contacts; timely access to at least 50 approved historical cases and selected templates; two to four pilot reviewers; and confirmation of permitted data/model use.
 
 **Consultant provides:** implementation, migration of the demonstrated workflow, configuration support, testing, monitoring during the POC, documentation, weekly status, and the final recommendation. Lea & Braze owns all professional and commercial decisions.
-
-## Commercial Terms
-
-- Time-and-materials engagement at **$78 per hour**.
-- Up to **20 hours per week** for eight weeks.
-- Maximum **160 billable hours**.
-- **Not-to-exceed professional-services fee: $12,480** (`160 x $78`).
-- AWS, model API, Microsoft licensing, and other third-party charges are not included. Any material third-party charge requires Lea & Braze approval before it is incurred.
-- Work beyond the scope, eight-week term, or 160-hour cap requires a separate written agreement.
 
 ## Approval
 
