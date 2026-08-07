@@ -1,90 +1,88 @@
-# Ava: 8-Week Agentic Request-to-Quote POC
+# Ava: 8-Week Quote Agent Proof of Concept
 
 **Prepared for:** Jim and Lea & Braze
 
 **Date:** August 6, 2026
 
-**Decision requested:** Approve a controlled eight-week engagement to determine whether an LLM-backed Ava can prepare project quote packages faster, answer quote-related questions in Teams, and learn from approved corrections while Lea & Braze retains final authority.
+**Decision requested:** Approve a controlled eight-week proof of concept to determine whether Ava can reduce quote-preparation time, improve consistency, and make company knowledge easier to use while Lea & Braze keeps control of every important decision.
 
-## Purpose and POC Boundary
+## Why Ava
 
-During the measured POC, Ava works beside the existing quote process so her results can be compared safely. This is a validation posture, not the permanent design: if the gates pass, a later phase can progressively make Ava the primary quote-preparation workflow. Jim or another named reviewer retains professional judgment, pricing authority, and approval of the exact customer message and attachment.
+Preparing a quote requires people to gather email attachments, search prior work, choose the right template, research the property and jurisdiction, check pricing inputs, assemble the package, and answer follow-up questions. Much of that work is repetitive, but it still requires company knowledge and judgment.
 
-For these eight weeks, Ava's measured business scope is **quotes**. She will receive approved inquiries, identify missing information, research the property and jurisdiction, retrieve comparables, prepare branded drafts, answer source-linked quote questions in Teams, understand revision requests, and present work for approval. The POC also establishes a reusable agent, memory, identity, file, Teams, and tool foundation so Ava can later support additional Lea & Braze workflows through separately approved capabilities.
+Ava is an AI-powered quote specialist that employees can work with in Microsoft Teams. She can organize each inquiry, find approved examples and templates, use ArcGIS and other approved sources, prepare a draft, explain what she used, and revise the work through normal conversation. The expected value is faster response, less time spent searching, more consistent packages, and company knowledge that can be reused instead of remaining with one person. Existing staff should be able to handle more quote demand with fewer repetitive steps while keeping human judgment where it matters.
 
-The POC is intended to evaluate Ava across **all quote families, all jurisdictions Lea & Braze serves, and all current approved quote layouts**, rather than a narrow subset. Work begins with an inventory of those categories and at least 50 reviewed historical cases. Fifty is a starting minimum, not a cap; the set expands as needed so every major quote family, jurisdiction, and layout has representative coverage.
+During the POC, Ava works beside the existing process for safe comparison. If results pass, a later phase can make Ava the primary quote-preparation workflow. Quotes are the only workflow measured now, but the same Teams identity, permissions, memory, connectors, and audit foundation can later support approved SharePoint, Monday, onboarding, meeting, or field workflows. A named Lea & Braze reviewer retains professional judgment, pricing, scope, and approval of the exact customer package.
 
-A historical case pairs the original inquiry and attachments with the final approved quote and corrections. Some cases configure Ava; a separate holdout set tests whether she can produce the right result without seeing the answer. After that gate passes, Ava processes an initial 15-25 new eligible inquiries in parallel. Testing continues if the incoming mix does not adequately represent major categories.
+## What the POC Will Prove
 
-**Included:** Exchange Online intake, approved attachments, ArcGIS/public research, a controlled SMB/DFS subset, GBrain source-linked knowledge retrieval, quote drafting, conversational Teams Q&A and revisions, read-only Monday.com quote context, approved Hermes memory, an authenticated review dashboard, audit history, and an approval-gated final send.
+The POC covers **all quote types, all jurisdictions Lea & Braze serves, and all currently approved quote layouts**. Work begins by listing those categories and reviewing at least 50 historical cases. Fifty is the starting minimum, not a limit; more are added when needed for representative coverage.
 
-**Excluded:** company-wide rollout, all 16-17 TB of data, unrestricted file access, autonomous pricing commitments, engineering/code conclusions, full plan interpretation, Monday.com replacement or unapproved write-back, SWPPP, and unsupervised customer communication.
+Each historical case includes the original inquiry and attachments, the final approved quote, and known corrections. Some cases are used to configure Ava. A separate holdout set, which Ava has not seen during setup, tests whether she can produce the right result independently. After passing that test, Ava prepares drafts for an initial 15-25 new inquiries while the team continues its normal process. Parallel testing continues if the live mix does not represent the major categories.
 
-## Recommended Deployment and Integration
+**Included:** Exchange Online intake, approved attachments, SMB/DFS network files, GBrain company-knowledge retrieval, ArcGIS/public research, quote drafting, Teams questions and revisions, read-only Monday.com quote information, approved memory and skills, a secure review page, complete audit history, and an approval-controlled final send.
+
+**Not included:** company-wide rollout, unrestricted access to all 16-17 TB of files, autonomous pricing or scope commitments, engineering/code conclusions, full plan interpretation, Monday.com replacement or unapproved updates, SWPPP, or unsupervised customer communication.
+
+## How Ava Works
 
 ```text
-Exchange Online + Teams -> Entra/Graph/Teams bot -> Hermes agent in AWS
-  -> GPT-5.6 reasoning + GBrain knowledge + approved Hermes memory
-  -> permissioned tools: SMB/DFS connector, ArcGIS, Monday.com, quote builder
-  -> PostgreSQL workflow state and complete audit history
-  -> Teams answer/revision -> named approval -> Graph sends exact package
+Inquiry copied to Ava mailbox -> Ava/Hermes understands and organizes it
+  -> approved tools search SMB/DFS, GBrain, Monday.com, ArcGIS, and attachments
+  -> Ava prepares a source-linked draft and discusses it with staff in Teams
+  -> named reviewer confirms the exact recipient, message, attachment, and version
+  -> Microsoft Graph sends only when the controlled-send stage is authorized
 ```
 
-| Area | POC decision |
+## Technical Design and Safeguards
+
+| Area | Plain-language design and technical detail |
 | --- | --- |
-| **Agent hosting** | IT selects its existing nonproduction AWS account/VPC pattern that provides isolation while preserving the current Site-to-Site path; a new account or network is created only if IT's standards require it. The consultant deploys reviewed infrastructure-as-code through a permission-bounded role limited to tagged Ava resources, with no authority over existing workloads, IAM, VPN, or routing. Use PostgreSQL, encrypted storage, Secrets Manager, budgets, and logs/alerts. Only the authenticated Teams webhook is internet-facing. |
-| **Email and identity** | IT creates a company-controlled Ava POC mailbox and adds it to the approved `info`/`RFP` distribution lists. A dedicated Entra application uses Microsoft Graph with only required mail permissions. Exchange Online RBAC scopes application access to Ava's mailbox. `Mail.Send` is enabled only for the controlled-send stage. |
-| **Teams and approval** | Approved users can message Ava directly or `@Ava` in a POC chat/channel to ask quote questions or request changes. Hermes interprets the language and loads shared case context. Sending still requires an authorized, unambiguous confirmation of the exact recipient, message, attachment, and version in the Entra-authenticated review flow. |
-| **Files** | Prefer a small domain-connected connector on the existing Proxmox environment. Using a dedicated AD service identity, it reads only approved SMB/DFS folders and writes only to a separate output location. It exchanges requested extracts through one narrow, IT-approved connection; AWS never joins the domain or mounts the company share, and Hermes never receives SMB credentials. |
-| **Monday.com** | Connect through a least-privilege OAuth application. During the POC Ava may read approved quote-board items, status, owner, dates, and updates for context and Q&A. Monday remains the human backlog/workload system; Ava's PostgreSQL database owns agent execution and audit state. Write-back requires a later approved tool and policy. |
-| **Data controls** | Use only the approved POC subset and minimum necessary content. Region, retention, deletion, model-provider use, malware scanning, backup, and incident contacts are documented before live cases. Every file read, model call, draft, edit, approval, and send is logged. |
-
-## Agent Runtime and Tools
-
-**Hermes becomes Ava's primary agent runtime and Teams-facing conversational brain.** It maintains context, plans work, interprets informal language, answers questions, asks for clarification, chooses an allowed tool, and proposes memories or reusable skills. GPT-5.6 Terra supplies reasoning for inquiry interpretation, research synthesis, comparable analysis, Q&A, revisions, and drafting. After evaluation, only proven low-risk classification and extraction may move to GPT-5.6 Luna. Exact model and prompt versions are pinned during measured testing.
-
-Python becomes a set of narrow business tools exposed to Hermes through filtered MCP interfaces: get a case, search approved comparables, request an SMB document, research a jurisdiction, build or revise a quote, read Monday context, request approval, and send the approved package. Each tool validates the Teams user, case, permissions, workflow state, inputs, and output. The model cannot change permissions, browse arbitrary files, or execute a customer-facing action directly.
+| **Agent and models** | Hermes manages Ava's conversations, context, planning, memory, and tool choice. GPT-5.6 Terra handles reasoning, research synthesis, questions, revisions, and drafting; Luna may later handle only tested, low-risk extraction or classification. OpenAI Responses use strict output schemas, and model/prompt versions stay fixed during measured tests. Restricted Python tools, connected through the Model Context Protocol (MCP), check permissions and inputs before reading data or acting. |
+| **State, knowledge, and learning** | PostgreSQL records cases, versions, approvals, and audit events. GBrain stores source-linked knowledge from approved templates and historical work. Hermes memory stores approved preferences and lessons. Corrections become memories or skills only after historical testing and human approval; Ava cannot silently change pricing, jurisdiction, approval, or sending rules. |
+| **AWS hosting** | IT selects its existing isolated, nonproduction AWS account and private network (VPC) pattern while preserving the private Site-to-Site connection. Reviewed infrastructure-as-code runs through a restricted role limited to tagged Ava resources, not existing workloads, IAM, VPN, or routing. The environment includes PostgreSQL, encrypted storage, Secrets Manager, budgets, logs, and alerts. Only the authenticated Teams message endpoint is public. |
+| **Microsoft 365 and Teams** | IT creates Ava's company mailbox, adds it to approved inquiry lists, and approves a dedicated Entra application. Microsoft Graph, Microsoft 365's supported API, is limited to that mailbox. Approved users can message Ava directly or `@Ava` in the POC Teams space, and the review page uses Entra sign-in. Conversation can request answers and revisions; Microsoft's send permission remains disabled until a controlled-send test is explicitly approved. |
 
 <div style="page-break-after: always;"></div>
 
-## Memory, Learning, and Expansion
+## Connections and Data Controls
 
-Memory is layered: PostgreSQL is authoritative for cases, versions, approvals, and audit; GBrain stores source-linked company knowledge from the approved POC corpus; Hermes memory stores approved preferences and lessons; and versioned skills store approved procedures. Corrections are captured, proposed as memories or skills, tested against historical cases, and activated only after human approval. Ava does not silently retrain or change pricing, jurisdiction, approval, or sending policy.
-
-This allows Ava to understand normal Teams conversations while keeping high-risk actions controlled. Ava can use the current conversation to understand a revision request and ask a follow-up question when the requested change is unclear. Before any customer email is sent, the system verifies that the requester is authorized and requires confirmation of the exact recipient, message, attachment, and quote version.
-
-**Expansion foundation:** quotes are the only workflow evaluated in this POC. If successful, the same Teams identity, agent runtime, permission model, memory, connectors, and audit framework can later add separately approved skills for SharePoint retrieval, Monday updates, project onboarding, meeting follow-up, field reports, or other workflows without rebuilding Ava from scratch.
+| Area | Plain-language design and technical detail |
+| --- | --- |
+| **Company files** | A small connector runs in the existing Proxmox environment using a dedicated Active Directory identity. It can read only approved SMB/DFS folders and write only to a separate output folder. It exchanges requested information through one narrow, IT-approved connection. AWS does not join the company domain or mount the full file share, and Hermes never receives SMB credentials. |
+| **Monday.com and research** | A least-privilege Monday application reads the approved quote boards, ownership, dates, status, columns, and updates for context and questions. Monday remains the team's backlog/workload system; Ava's database owns agent execution and audit history. Monday write-back requires separate approval. ArcGIS and approved public sources support property and jurisdiction research. |
+| **Data protection** | Only the approved POC data set and minimum necessary content are used. Before live cases, IT and leadership approve the cloud region, model provider, retention, deletion, malware scanning, backup, and incident contacts. Every mailbox action, file read, Monday query, model call, draft, correction, approval, and send is logged. |
 
 ## Eight-Week Delivery Plan
 
-The consultant owns application design, coding, deployment, integration, testing, and monitoring. IT chooses the existing isolated AWS location, performs only tenant/domain/network actions requiring company authority, and approves the prepared manifests and permission requests. To minimize interruptions, the consultant supplies one consolidated setup checklist before kickoff, tracks access issues in one place, and batches business questions into scheduled review sessions rather than contacting staff case by case.
+The consultant owns design, coding, deployment, integration, testing, monitoring, and documentation. IT does not build Ava; it performs the company-controlled AWS, Microsoft, network, AD, file, and Monday approvals. To reduce interruptions, the consultant provides one setup checklist before kickoff, tracks access issues in one place, and batches reviewer questions into scheduled sessions. The target is two IT working sessions in weeks 1-2, followed by exception support only.
 
-| Weeks | Work split and proof before moving on |
+| Weeks | Work, ownership, and proof before moving on |
 | --- | --- |
-| **1-2: Establish every connection and control** | **Consultant:** map quote coverage and data flow; deploy Ava, Hermes, PostgreSQL, GBrain, storage, secrets, logging, and the dashboard in IT's approved AWS location; prepare all connector configurations. **IT:** approve the bounded AWS role and existing private route; create the mailbox/Entra application, Teams pilot, read-only AD/file identity and output folder, and read-only Monday authorization. **Reviewers:** identify rules, escalation points, and historical cases. **Proof:** an integration checklist confirms Exchange intake; Teams access for every pilot user; read-only access across every approved SMB/DFS root and supported file type; output-folder isolation; read access to every approved Monday board, column, and update type; ArcGIS/model/dashboard access; complete logs; credential revocation; and no customer sending. |
-| **3-4: Build the complete quote agent** | **Consultant:** move case state to PostgreSQL; ingest the approved template and development-case corpus into GBrain with source links; configure retrieval, memory approval, ArcGIS research, quote-building tools, and Teams questions and revisions. **Reviewers:** validate representative source selection, template choice, research, pricing inputs, draft structure, and answers in scheduled batches. **Proof:** development cases span every populated quote-family, jurisdiction, and layout category; Ava completes intake-to-draft behavior, uses SMB, Monday, and public context correctly, cites its evidence, asks when information is missing, and never contacts customers. Coverage gaps are listed rather than hidden. |
-| **5-6: Validate quality, security, and recovery** | **Consultant:** run the untouched holdout set; correct systematic failures; test identity and permissions on every connector, exact-version approval, duplicate and attachment protection, retries, audit logs, alerts, backup/restore, emergency shutoff, unclear Teams requests, and memory regression. **Reviewers:** score drafts, record corrections, and approve or reject proposed learning in batches. **Proof:** holdout results meet the quality threshold across represented categories; prohibited reads/writes and unauthorized actions fail; failures alert and recover correctly; restored state is complete; and Ava is ready for parallel work. |
-| **7-8: Compare Ava with live work** | **Team:** continue the normal process while Ava receives copies of an initial 15-25 eligible inquiries and independently prepares drafts; testing continues if the live mix does not represent major categories. **Consultant:** monitor every case, measure elapsed and hands-on time, record corrections and cost, and report by quote family, jurisdiction, and layout. Ava sends nothing unless Jim and IT separately approve a monitored send test. **Proof:** final scorecard, integration reliability, coverage gaps, risk register, operating runbook, and a go, revise, or stop recommendation. |
+| **1-2: Connect everything safely** | **Consultant:** map quote coverage and data flow; deploy Ava, Hermes, PostgreSQL, GBrain, storage, secrets, logs, and the review page in the AWS location IT selects; prepare every connector. **IT:** approve the restricted AWS role and existing private route; create the mailbox/Entra application, Teams pilot, read-only file identity/output folder, and read-only Monday access. **Reviewers:** identify rules, escalation points, and historical cases. **Ready when:** Exchange intake works; every pilot user can reach Ava; every approved SMB/DFS root and supported file type can be read but not changed; output is isolated; every approved Monday board/column/update type can be read but not changed; ArcGIS, model, and review access work; logs and credential revocation work; customer sending is disabled. |
+| **3-4: Build the complete quote behavior** | **Consultant:** move case state to PostgreSQL; load approved templates and development cases into GBrain with links to their sources; configure retrieval, controlled learning, ArcGIS research, quote tools, and Teams questions/revisions. **Reviewers:** validate source choice, templates, research, pricing inputs, draft structure, and answers in scheduled batches. **Ready when:** development cases cover every populated quote type, jurisdiction, and layout category; Ava completes intake through draft, uses SMB, Monday, and public information correctly, cites its evidence, asks when information is missing, and never contacts customers. Any missing coverage is listed clearly. |
+| **5-6: Prove quality, security, and recovery** | **Consultant:** run untouched holdout cases and correct repeatable failures; test every connector's permissions, exact-version approval, duplicate/attachment protection, retries, audit logs, alerts, backup/restore, emergency shutoff, unclear Teams requests, and memory changes. **Reviewers:** score drafts, record corrections, and approve or reject proposed learning in batches. **Ready when:** quality meets the agreed threshold across represented categories; prohibited reads, writes, and unauthorized actions fail; failures alert and recover correctly; restored state is complete; and Ava is ready for parallel work. |
+| **7-8: Compare Ava with live work** | **Team:** continue the normal process while Ava receives copies of an initial 15-25 eligible inquiries and independently prepares drafts. Testing continues if the live mix misses major categories. **Consultant:** monitor every case and report time, hands-on effort, corrections, cost, and results by quote type, jurisdiction, and layout. Ava sends nothing unless Jim and IT separately approve a monitored send test. **Ready when:** Lea & Braze has a final scorecard, integration-reliability results, coverage gaps, risk register, operating runbook, and a go, revise, or stop recommendation. |
 
-## Pass/Fail Measures
+## Success Measures
 
-The POC proceeds beyond parallel testing only when safety and business value pass together:
+The POC advances only when business value and safety pass together:
 
 - **0** unauthorized, duplicate, wrong-recipient, or wrong-attachment sends.
-- At least **80%** of routine first-pass Ava packages have no material error or omission and perform no worse than the manual first pass.
-- Results are reported by quote family, jurisdiction, and layout; no major category is called validated without representative historical and parallel evidence.
-- Median time and human hands-on effort to a materially acceptable package are at least **50% lower** than the manual baseline.
+- At least **80%** of routine first drafts have no material error or omission and perform no worse than the manual first draft.
+- Results are reported by quote type, jurisdiction, and layout; no major category is called validated without representative evidence.
+- Median elapsed time and staff hands-on effort to an acceptable package are at least **50% lower** than the manual baseline.
 - Median reviewer hands-on time for a routine complete package is **10 minutes or less**.
-- Quote-related Teams answers and revisions are source-linked, permission-checked, and materially correct; ambiguity triggers clarification rather than an unsafe assumption.
-- **100%** of measured cases preserve sources, model/prompt version, memory/skill version, output versions, human changes, approval identity, and final action.
-- Uncertain jurisdiction, missing information, unsupported pricing, or out-of-scope work reliably stops for human review.
+- Teams answers and revisions are source-linked, permission-checked, and materially correct; unclear requests produce a question instead of an unsafe assumption.
+- **100%** of measured cases preserve sources, model/prompt/memory versions, drafts, human changes, reviewer identity, and final action.
+- Missing information, uncertain jurisdiction, unsupported pricing, or out-of-scope work reliably stops for human review.
 
 ## Deliverables and Responsibilities
 
-**POC deliverables:** AWS-hosted Hermes/Ava agent; PostgreSQL state and GBrain knowledge layer; configured mailbox, Teams Q&A/review, dashboard, SMB connector, read-only Monday quote connector, approved-memory workflow, research and quote tools; integration acceptance matrix; coverage matrix; historical and parallel results; security/operations runbook; audit export; scorecard; and a scoped MVP and expansion recommendation.
+**Delivered:** working AWS-hosted Hermes/Ava agent; PostgreSQL and GBrain; configured mailbox, Teams, review page, SMB connector, read-only Monday connector, approved-memory process, research and quote tools; integration and quote-coverage checklists; historical and parallel results; security/operations runbook; audit export; scorecard; and a recommended next phase.
 
-**Lea & Braze provides:** Jim's business decisions and final approvals; IT-created identities, permissions, network rules, POC folders, and incident contacts; timely access to at least 50 approved historical cases plus additional cases needed for representative coverage; the complete approved quote-template library; two to four pilot reviewers; and confirmation of permitted data/model use.
+**Lea & Braze provides:** Jim's business decisions and final approvals; IT-created identities, permissions, network rules, POC folders, and incident contacts; at least 50 approved historical cases plus any needed for coverage; the approved template library; two to four pilot reviewers; and approval of permitted data/model use.
 
-**Consultant provides:** implementation, migration of the demonstrated workflow into the controlled agent architecture, configuration support, testing, monitoring, documentation, weekly status, and final recommendations. Lea & Braze owns all professional and commercial decisions.
+**Consultant provides:** implementation, deployment, integration, testing, monitoring, documentation, weekly status, and final recommendations. Lea & Braze retains every professional and commercial decision.
 
-**Approval:** Approval authorizes the quote-only POC and its reusable technical foundation, not a production rollout, additional business workflows, or autonomous customer communication. Lea & Braze approval: ____________________ Date: __________
+**Approval:** Approval authorizes the quote-only POC and its reusable foundation, not production rollout, additional workflows, or autonomous customer communication. Lea & Braze approval: ____________________ Date: __________
