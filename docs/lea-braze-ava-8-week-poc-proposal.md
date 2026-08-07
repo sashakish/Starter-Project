@@ -51,7 +51,7 @@ Python becomes a set of narrow business tools exposed to Hermes through filtered
 
 Memory is layered: PostgreSQL is authoritative for cases, versions, approvals, and audit; an evaluated GBrain or equivalent knowledge layer stores source-linked company knowledge; Hermes memory stores approved preferences and lessons; and versioned skills store approved procedures. Corrections are captured, proposed as memories or skills, tested against historical cases, and activated only after human approval. Ava does not silently retrain or change pricing, jurisdiction, approval, or sending policy.
 
-This makes Ava a genuine LLM-backed agent while retaining reliable controls. For example, `bet` is treated as acknowledgment, not approval; `change this` triggers contextual interpretation or a clarifying question; and `send it` may express intent but cannot bypass identity, version, recipient, attachment, and approval checks.
+This allows Ava to understand normal Teams conversations while keeping high-risk actions controlled. Ava can use the current conversation to understand a revision request and ask a follow-up question when the requested change is unclear. Before any customer email is sent, the system verifies that the requester is authorized and requires confirmation of the exact recipient, message, attachment, and quote version.
 
 **Expansion foundation:** quotes are the only workflow evaluated in this POC. If successful, the same Teams identity, agent runtime, permission model, memory, connectors, and audit framework can later add separately approved skills for SharePoint retrieval, Monday updates, project onboarding, meeting follow-up, field reports, or other workflows without rebuilding Ava from scratch.
 
