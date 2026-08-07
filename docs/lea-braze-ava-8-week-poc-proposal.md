@@ -24,7 +24,7 @@ Each historical case includes the original inquiry and attachments, the final ap
 
 **Not included:** company-wide rollout, unrestricted access to all 16-17 TB of files, Ava changing approved pricing rules or committing pricing/scope without reviewer approval, engineering/code conclusions, full plan interpretation, Monday.com replacement or unapproved updates, SWPPP, or unsupervised customer communication.
 
-## How Ava Works
+## How Ava's POC Quote Workflow Works
 
 ```text
 Inquiry copied to Ava mailbox -> Ava/Hermes understands and organizes it
