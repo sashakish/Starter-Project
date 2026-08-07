@@ -4,13 +4,13 @@
 
 **Date:** August 6, 2026
 
-**Decision requested:** Approve an eight-week proof of concept to deliver and validate Ava, a secure AI quote agent designed to cut quote-preparation time and staff effort by at least 50%, improve consistency across every quote type and jurisdiction, and turn Lea & Braze's historical work into reusable company knowledge, while the company retains final control of pricing, scope, and customer communication.
+**Decision requested:** Approve an eight-week proof of concept to deliver and validate Ava, a secure, always-available digital employee built to transform quote preparation: dramatically reduce turnaround and staff effort, increase capacity and consistency across every quote type and jurisdiction, and turn Lea & Braze's historical work into reusable company knowledge, while the company retains final control of pricing, scope, and customer communication.
 
 ## Why Ava
 
 Preparing a quote requires people to gather email attachments, search prior work, choose the right template, research the property and jurisdiction, check pricing inputs, assemble the package, and answer follow-up questions. Much of that work is repetitive, but it still requires company knowledge and judgment.
 
-Ava is an AI-powered quote specialist that employees can work with in Microsoft Teams. She can organize each inquiry, find approved examples and templates, use ArcGIS and other approved sources, prepare a draft, explain what she used, and revise the work through normal conversation. The expected value is faster response, less time spent searching, more consistent packages, and company knowledge that can be reused instead of remaining with one person. Existing staff should be able to handle more quote demand with fewer repetitive steps while keeping human judgment where it matters.
+Ava is a powerful, always-available digital employee that staff can work with directly in Microsoft Teams. She can operate around the clock, take in approved inquiries as they arrive, search years of company knowledge and trusted sources in seconds, prepare and revise complete quote packages, explain the evidence behind her work, and learn from reviewed and approved corrections. Instead of spending valuable staff time on repetitive searching, research, document assembly, and follow-up, Lea & Braze gains a digital teammate that performs those steps at software speed while people retain professional and commercial judgment. The expected value is dramatically faster turnaround, greater quote capacity without matching headcount growth, more consistent work, and company knowledge that improves and remains available instead of depending on one person's memory.
 
 During the POC, Ava works beside the existing process for safe comparison. If results pass, a later phase can make Ava the primary quote-preparation workflow. Quotes are the only workflow measured now, but the same Teams identity, permissions, memory, connectors, and audit foundation can later support approved SharePoint, Monday, onboarding, meeting, or field workflows. A named Lea & Braze reviewer retains professional judgment, pricing, scope, and approval of the exact customer package.
 
@@ -71,7 +71,7 @@ The POC advances only when business value and safety pass together:
 - **0** unauthorized, duplicate, wrong-recipient, or wrong-attachment sends.
 - At least **80%** of routine first drafts have no material error or omission and perform no worse than the manual first draft.
 - Results are reported by quote type, jurisdiction, and layout; no major category is called validated without representative evidence.
-- Median elapsed time and staff hands-on effort to an acceptable package are at least **50% lower** than the manual baseline.
+- Median elapsed time and staff hands-on effort to an acceptable package are reduced substantially; **50% is the minimum pass threshold, not the performance target**.
 - Median reviewer hands-on time for a routine complete package is **10 minutes or less**.
 - Teams answers and revisions are source-linked, permission-checked, and materially correct; unclear requests produce a question instead of an unsafe assumption.
 - **100%** of measured cases preserve sources, model/prompt/memory versions, drafts, human changes, reviewer identity, and final action.
