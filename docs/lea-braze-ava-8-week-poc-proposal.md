@@ -4,7 +4,7 @@
 
 **Date:** August 6, 2026
 
-**Decision requested:** Approve a controlled eight-week proof of concept to determine whether Ava can reduce quote-preparation time, improve consistency, and make company knowledge easier to use while Lea & Braze keeps control of every important decision.
+**Decision requested:** Approve an eight-week proof of concept to deliver and validate Ava, a secure AI quote agent designed to cut quote-preparation time and staff effort by at least 50%, improve consistency across every quote type and jurisdiction, and turn Lea & Braze's historical work into reusable company knowledge, while the company retains final control of pricing, scope, and customer communication.
 
 ## Why Ava
 
