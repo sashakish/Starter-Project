@@ -8,27 +8,17 @@
 
 **Review requested:** Confirm that this eight-week POC scope and controlled deployment approach should move to commercial discussion. Ava is intended to reduce quote turnaround and senior staff effort, increase capacity to pursue more work, and preserve company knowledge. Lea & Braze retains final approval of every price, scope, and completed quote.
 
-## Business Case - Planning Assumption
-
-Meeting records show approximately **763 quotes in the prior year, or about 64 per month**, and **495 quotes already recorded in 2026** at the August 3 IT meeting. The discussion indicated that Jim and Pete prepare much of this work because it depends on their experience. That volume, the historical archive, and the repeatable workflow provide strong evidence that Ava has meaningful work to automate.
-
-**Planning assumption:** Saving one senior hour per quote would release roughly **64 senior hours, or eight workdays, each month** and create capacity to answer more opportunities sooner and potentially win more business. Exact current effort and revenue impact are not yet confirmed; Jim will confirm a rough baseline before the final SOW, and the POC will measure the actual result. This is an assumption to test, not a guaranteed outcome.
-
 ## Why Ava
 
 Ava is a powerful, always-available digital employee that staff work with in Microsoft Teams. She receives approved inquiries around the clock, checks completeness, asks customers only for required missing information, searches approved company knowledge and tools in seconds, prepares source-linked priced drafts, explains her evidence, and revises work through normal conversation. People retain professional and commercial judgment while Ava handles repetitive search, research, follow-up, and document assembly at software speed.
 
 During the POC, Ava works beside the existing process for safe comparison. Quotes are the only workflow measured now, but the same Teams identity, permissions, memory, connectors, and audit foundation can later support other approved company workflows.
 
-## Scope and Evidence
+## Business Case - Planning Assumption
 
-Ava is designed for **all known quote types, all jurisdictions Lea & Braze serves, and all currently approved layouts**. More than 50 historical cases, plus additional cases where coverage is thin, are divided between configuration and an untouched holdout test. An initial 15-25 new inquiries then test live operation beside the current process.
+Meeting records show approximately **763 quotes in the prior year, or about 64 per month**, and **495 quotes already recorded in 2026** at the August 3 IT meeting. The discussion indicated that Jim and Pete prepare much of this work because it depends on their experience. That volume, the historical archive, and the repeatable workflow provide strong evidence that Ava has meaningful work to automate.
 
-The final scorecard will distinguish **historically tested** coverage from **live-validated** coverage. A category is not called live-validated unless it appears in the live sample; if major categories are missing, cases are added or the measured run continues. This makes the eight-week result honest about long-tail coverage.
-
-**Included:** Exchange Online intake, approved attachments, SMB/DFS files, GBrain knowledge retrieval, versioned Pricing Memory, ArcGIS/public research, automatic missing-information requests, quote drafting, Teams questions/revisions, read-only Monday.com project information, approved learning, a secure review page, complete audit history, and reviewer-approved final quote sending.
-
-**Not included:** company-wide rollout, unrestricted access to all 16-17 TB of files, Ava changing approved pricing rules or committing pricing/scope without reviewer approval, professional engineering judgments, code-compliance decisions, complete construction-plan review, Monday.com replacement or unapproved updates, SWPPP, or customer communication beyond necessary information requests and reviewer-approved final quotes.
+**Planning assumption:** Saving one senior hour per quote would release roughly **64 senior hours, or eight workdays, each month** and create capacity to answer more opportunities sooner and potentially win more business. Exact current effort and revenue impact are not yet confirmed; Jim will confirm a rough baseline before the final SOW, and the POC will measure the actual result. This is an assumption to test, not a guaranteed outcome.
 
 ## Ava's POC Quote Workflow
 
@@ -40,6 +30,16 @@ Inquiry copied to Ava mailbox -> Ava organizes it and checks completeness
   -> reviewer approves price, scope, recipient, message, file, and version -> final quote sends
 ```
 
+## Scope and Evidence
+
+Ava is designed for **all known quote types, all jurisdictions Lea & Braze serves, and all currently approved layouts**. More than 50 historical cases, plus additional cases where coverage is thin, are divided between configuration and an untouched holdout test. An initial 15-25 new inquiries then test live operation beside the current process.
+
+The final scorecard will distinguish **historically tested** coverage from **live-validated** coverage. A category is not called live-validated unless it appears in the live sample; if major categories are missing, cases are added or the measured run continues. This makes the eight-week result honest about long-tail coverage.
+
+**Included:** Exchange Online intake, approved attachments, SMB/DFS files, GBrain knowledge retrieval, versioned Pricing Memory, ArcGIS/public research, automatic missing-information requests, quote drafting, Teams questions/revisions, read-only Monday.com project information, approved learning, a secure review page, complete audit history, and reviewer-approved final quote sending.
+
+**Not included:** company-wide rollout, unrestricted access to all 16-17 TB of files, Ava changing approved pricing rules or committing pricing/scope without reviewer approval, professional engineering judgments, code-compliance decisions, complete construction-plan review, Monday.com replacement or unapproved updates, SWPPP, or customer communication beyond necessary information requests and reviewer-approved final quotes.
+
 ## Safety and Success Gates
 
 - **100%** of completed quotes require named-reviewer approval; **0** unauthorized, duplicate, wrong-recipient, or wrong-attachment final sends.
@@ -48,6 +48,10 @@ Inquiry copied to Ava mailbox -> Ava organizes it and checks completeness
 - A measured baseline is established first. At least **50%** lower turnaround and staff effort, plus **10 minutes or less** reviewer time for routine complete quotes, are minimum POC gates rather than promised results or performance ceilings.
 - Results are reported by quote type, jurisdiction, and layout, with historical and live validation clearly separated.
 - **100%** of measured cases preserve sources, versions, drafts, changes, reviewer identity, and final action.
+
+## Next Step and Final SOW
+
+This review version does **not** authorize implementation. Jim and John first confirm the scope and technical approach. Engagement pricing, billing terms, and the start date are then discussed in person and inserted into this same document. That updated version becomes the final Statement of Work, and work begins only after it is signed.
 
 <div style="page-break-after: always;"></div>
 
@@ -79,7 +83,3 @@ Inquiry copied to Ava mailbox -> Ava organizes it and checks completeness
 **Lea & Braze provides:** Jim's decisions; John/IT approvals, identities, permissions, network rules, Teams spaces, and incident contact; access to approved historical cases, templates, rate sheets, pricing rules, and known exceptions; two to four reviewers; and approval of permitted data/model use. The consultant prepares the historical data after access is granted.
 
 **Consultant provides:** design, implementation, deployment, integration, testing, monitoring, documentation, weekly status, and final recommendations. Lea & Braze retains every professional and commercial decision.
-
-## Next Step and Final SOW
-
-This review version does **not** authorize implementation. Jim and John first confirm the scope and technical approach. Engagement pricing, billing terms, and the start date are then discussed in person and inserted into this same document. That updated version becomes the final Statement of Work, and work begins only after it is signed.
