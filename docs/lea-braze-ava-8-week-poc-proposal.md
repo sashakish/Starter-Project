@@ -22,9 +22,11 @@ Meeting records show approximately **763 quotes in the prior year, or about 64 p
 
 ## Ava's POC Quote Workflow
 
+**Initial shadow stage:** Ava receives a copy of the inquiry and checks completeness. If information is missing, she drafts the exact customer question but does not send it. The existing employee handles customer communication normally, and Ava's proposed question is compared with what the employee actually asked.
+
 ```text
 Inquiry copied to Ava mailbox -> Ava organizes it and checks completeness
-  -> if information is missing, Ava asks the customer only for what is required
+  -> in shadow stage, Ava drafts any missing-information question but sends nothing
   -> approved tools search company files, knowledge, pricing, Monday, and ArcGIS
   -> Ava prepares a sourced draft and revises it with staff in Teams
   -> reviewer approves price, scope, recipient, message, file, and version -> final quote sends
