@@ -16,7 +16,7 @@ During the POC, Ava works beside the existing process for safe comparison. Quote
 
 ## Business Case - Planning Assumption
 
-Meeting records show approximately **763 quotes in the prior year, or about 64 per month**, and **495 quotes already recorded in 2026** at the August 3 IT meeting. The discussion indicated that Jim and Pete prepare much of this work because it depends on their experience. That volume, the historical archive, and the repeatable workflow provide strong evidence that Ava has meaningful work to automate.
+Records show approximately **763 quotes in the prior year, or about 64 per month**, and **495 quotes already recorded in 2026**. The discussion indicated that Jim and Pete prepare much of this work because it depends on their experience. That volume, the historical archive, and the repeatable workflow provide strong evidence that Ava has meaningful work to automate.
 
 **Planning assumption:** Saving one senior hour per quote would release roughly **64 senior hours, or eight workdays, each month** and create capacity to answer more opportunities sooner and potentially win more business. Exact current effort and revenue impact are not yet confirmed; Jim will confirm a rough baseline before the final SOW, and the POC will measure the actual result. This is an assumption to test, not a guaranteed outcome.
 
@@ -38,7 +38,7 @@ Ava is designed for **all known quote types, all jurisdictions Lea & Braze serve
 
 The final scorecard will distinguish **historically tested** coverage from **live-validated** coverage. A category is not called live-validated unless it appears in the live sample; if major categories are missing, cases are added or the measured run continues. This makes the eight-week result honest about long-tail coverage.
 
-**Included:** Exchange Online intake, approved attachments, SMB/DFS files, GBrain knowledge retrieval, versioned Pricing Memory, ArcGIS/public research, drafted missing-information questions, quote drafting, Teams questions/revisions, read-only Monday.com project information, approved learning, a secure review page, complete audit history, and side-by-side comparison with the existing process.
+**Included:** Exchange Online intake, approved attachments, SMB/DFS files, knowledge retrieval, versioned pricing memory, ArcGIS/public research, drafted missing-information questions, quote drafting, Teams questions/revisions, read-only Monday.com project information, approved learning, a secure review page, complete audit history, and side-by-side comparison with the existing process.
 
 **Not included:** company-wide rollout, unrestricted access to all 16-17 TB of files, Ava changing approved pricing rules or committing pricing/scope without reviewer approval, professional engineering judgments, code-compliance decisions, complete construction-plan review, Monday.com replacement or unapproved updates, SWPPP, or any customer communication or final quote sent by Ava.
 
