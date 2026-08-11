@@ -1,0 +1,14 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - rm -rf dist && mkdir -p dist
+        - cp ./*.html ./site.css ./site.js dist/
+        - cp -R ./public dist/public
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths: []
