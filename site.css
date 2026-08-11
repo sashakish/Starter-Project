@@ -3904,18 +3904,6 @@ h4 {
   line-height: 1;
 }
 
-.about-sf-copy {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 48px;
-  max-width: 930px;
-}
-
-.about-sf-copy p {
-  margin: 0;
-  color: var(--muted);
-}
-
 .about-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -6022,7 +6010,6 @@ h4 {
     margin-top: 0;
     font-size: 43px;
   }
-  .about-sf-copy { grid-template-columns: 1fr; gap: 20px; }
   .about-facts { grid-template-columns: 1fr; }
   .about-facts div { min-height: 110px; }
   .about-facts dt { margin-bottom: 24px; }
