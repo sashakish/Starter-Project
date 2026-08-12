@@ -184,6 +184,8 @@ h4 {
 .nav-inner::after { right: -6px; }
 
 .brand {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   gap: 11px;
   align-items: center;
@@ -192,6 +194,14 @@ h4 {
   font-weight: 600;
   letter-spacing: -.03em;
   line-height: 1;
+}
+
+.home-page .site-header:not(.is-scrolled) .brand::before {
+  position: absolute;
+  z-index: -1;
+  inset: -5px -9px;
+  content: "";
+  background: var(--white);
 }
 
 .brand-mark {
