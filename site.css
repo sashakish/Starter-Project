@@ -56,7 +56,7 @@
   --mono: "Geist Mono", "SFMono-Regular", Consolas, monospace;
   --max: 1280px;
   --gutter: 32px;
-  --nav-h: 70px;
+  --nav-h: 105px;
   --radius-lg: 32px;
   --radius-md: 24px;
   --radius-sm: 8px;
@@ -895,7 +895,7 @@ h4 {
 
 .system-thesis-pin {
   position: sticky;
-  top: 76px;
+  top: calc(var(--nav-h) + 6px);
   min-height: min(690px, calc(100vh - 84px));
   height: calc(100vh - 84px);
   overflow: hidden;
@@ -3361,7 +3361,7 @@ h4 {
   }
 
   .system-thesis-pin {
-    top: 64px;
+    top: calc(var(--nav-h) + 2px);
     min-height: calc(100vh - 70px);
     height: calc(100vh - 70px);
   }
@@ -5383,7 +5383,7 @@ h4 {
 
 @media (min-width: 761px) {
   .home-page .site-header:not(.is-scrolled) .nav-inner {
-    transform: translateY(11px);
+    transform: none;
   }
 }
 
@@ -5526,7 +5526,7 @@ h4 {
 }
 
 @media (max-width: 760px) {
-  :root { --nav-h: 62px; --gutter: 24px; --radius-lg: 26px; }
+  :root { --nav-h: 93px; --gutter: 24px; --radius-lg: 26px; }
   body { padding-bottom: 76px; font-size: 15px; }
   .nav-inner { padding: 0 24px; border-right: 0; border-left: 0; }
   .brand { font-size: 46px; }
