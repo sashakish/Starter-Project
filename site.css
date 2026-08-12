@@ -188,7 +188,7 @@ h4 {
   gap: 11px;
   align-items: center;
   width: max-content;
-  font-size: 25px;
+  font-size: 50px;
   font-weight: 600;
   letter-spacing: -.03em;
   line-height: 1;
@@ -196,8 +196,8 @@ h4 {
 
 .brand-mark {
   display: block;
-  width: 29px;
-  height: 29px;
+  width: 58px;
+  height: 58px;
   color: var(--ink);
 }
 
@@ -5519,8 +5519,8 @@ h4 {
   :root { --nav-h: 62px; --gutter: 24px; --radius-lg: 26px; }
   body { padding-bottom: 76px; font-size: 15px; }
   .nav-inner { padding: 0 24px; border-right: 0; border-left: 0; }
-  .brand { font-size: 23px; }
-  .brand-mark { width: 26px; height: 26px; }
+  .brand { font-size: 46px; }
+  .brand-mark { width: 52px; height: 52px; }
   .mobile-sticky-cta { display: flex; }
   .gamut-hero, .page-hero, .offer-field, .cta { max-width: calc(100% - 16px); margin-top: 8px; }
   .gamut-hero { min-height: 670px; }
