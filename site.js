@@ -16,7 +16,7 @@ if (shellHeader) {
   shellHeader.outerHTML = `
     <header class="site-header">
       <div class="nav-inner">
-        <a class="brand" href="index.html" aria-label="Custom AI Systems home"><span class="brand-mark" aria-hidden="true"></span><span>Custom AI Systems</span></a>
+        <a class="brand" href="index.html" aria-label="lever9 home"><svg class="brand-mark" viewBox="0 0 33 33" fill="none" aria-hidden="true"><circle cx="3.5" cy="3.5" r="3.5" fill="currentColor" /><circle cx="3.5" cy="16.5" r="3.5" fill="currentColor" /><circle cx="3.5" cy="29.5" r="3.5" fill="currentColor" /><circle cx="16.5" cy="3.5" r="3.5" fill="currentColor" /><circle cx="16.5" cy="16.5" r="3.5" fill="currentColor" /><circle cx="16.5" cy="29.5" r="3.5" fill="currentColor" /><circle cx="29.5" cy="29.5" r="3.5" fill="currentColor" /><rect x="26" y="0" width="7" height="20" rx="3.5" fill="currentColor" /></svg><span>lever9</span></a>
         <nav class="site-nav" aria-label="Primary navigation">${nav.map(([key, href, label]) => `<a href="${href}" ${current === key ? 'aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
         <div class="header-actions"><a class="header-link" href="contact.html#schedule">Start a Project</a></div>
         <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
@@ -33,11 +33,11 @@ const shellFooter = document.querySelector("[data-site-footer]");
 if (shellFooter) {
   shellFooter.outerHTML = `
     <footer class="site-footer">
-      <div class="footer-brand"><p class="eyebrow">Custom AI Systems</p><h2>Built around how the work actually moves.</h2></div>
+      <div class="footer-brand"><p class="eyebrow brand-name">lever9</p><h2>Built around how the work actually moves.</h2></div>
       <div class="footer-column"><h3>Offer</h3><a href="services.html">Services</a><a href="capabilities.html">Capabilities</a><a href="included.html">What Is Included</a><a href="enterprise.html">Enterprise</a><a href="industries.html">Industries</a></div>
       <div class="footer-column"><h3>Company</h3><a href="how-we-work.html">How We Work</a><a href="about.html">About</a></div>
       <div class="footer-column"><h3>Resources</h3><a href="readiness.html">AI Readiness</a><a href="roi.html">ROI Calculator</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></div>
-      <div class="footer-base"><span>&copy; <span data-current-year></span> Custom AI Systems</span><span>San Francisco / AI systems</span></div>
+      <div class="footer-base"><span>&copy; <span data-current-year></span> <span class="brand-name">lever9</span></span><span>San Francisco / AI systems for AEC</span></div>
     </footer>`;
 }
 

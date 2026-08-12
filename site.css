@@ -185,41 +185,20 @@ h4 {
 
 .brand {
   display: inline-flex;
-  gap: 10px;
+  gap: 11px;
   align-items: center;
   width: max-content;
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 600;
+  letter-spacing: -.03em;
   line-height: 1;
 }
 
 .brand-mark {
-  position: relative;
   display: block;
-  width: 28px;
-  height: 28px;
-}
-
-.brand-mark::before,
-.brand-mark::after {
-  position: absolute;
-  width: 16px;
-  height: 10px;
-  border-radius: 3px 8px 3px 8px;
-  content: "";
-  background: var(--ink);
-}
-
-.brand-mark::before {
-  top: 3px;
-  left: 2px;
-  transform: rotate(42deg);
-}
-
-.brand-mark::after {
-  right: 2px;
-  bottom: 3px;
-  transform: rotate(42deg);
+  width: 24px;
+  height: 24px;
+  color: var(--ink);
 }
 
 .site-nav {
@@ -3477,6 +3456,16 @@ h4 {
   text-transform: uppercase;
 }
 
+/* The wordmark is lowercase. Must follow .eyebrow and .footer-base, which are
+   equal specificity and would otherwise uppercase it on source order. */
+.brand-name {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: -.02em;
+  text-transform: none;
+}
+
 /* Inner pages */
 .page-hero {
   display: grid;
@@ -5531,7 +5520,7 @@ h4 {
   body { padding-bottom: 76px; font-size: 15px; }
   .nav-inner { padding: 0 24px; border-right: 0; border-left: 0; }
   .brand { font-size: 21px; }
-  .brand-mark { width: 27px; height: 27px; }
+  .brand-mark { width: 22px; height: 22px; }
   .mobile-sticky-cta { display: flex; }
   .gamut-hero, .page-hero, .offer-field, .cta { max-width: calc(100% - 16px); margin-top: 8px; }
   .gamut-hero { min-height: 670px; }
